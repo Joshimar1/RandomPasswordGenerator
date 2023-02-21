@@ -1,0 +1,29 @@
+﻿@{
+    ViewBag.Title = "Password Generator";
+}
+
+<h2>Password Generator</h2>
+
+<form method="post" action="@Url.Action("GeneratePassword")">
+    <div class="form-group">
+        <label for="length">Password Length:</label>
+        <input type="number" name="length" id="length" class="form-control" value="8" min="1" max="128" required />
+    </div>
+    <button type="submit" class="btn btn-primary">Generate Password</button>
+</form>
+
+<div id="password"></div>
+
+
+
+@section scripts {
+    <script>
+        $('form').submit(function (e) {
+            e.preventDefault();
+            var $form = $(this);
+            $.post($form.attr('action'), $form.serialize(), function (data) {
+                $('#password').text(data);
+            });
+        });
+    </script>
+}
